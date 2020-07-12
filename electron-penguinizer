@@ -6,10 +6,10 @@ then
     echo "no app.asar found. exiting. "
     exit
 else
-	rm -rf $electronpenguinizer_current/Source/
-	mkdir $electronpenguinizer_current/Source/
-    npx asar extract $electronpenguinizer_appasar $electronpenguinizer_current/Source
+	rm -rf /tmp/electronpenguinizer_source/
+	mkdir /tmp/electronpenguinizer_source/
+    npx asar extract $electronpenguinizer_appasar /tmp/electronpenguinizer_source/
 fi
 
-electron-packager Source/ unoffically_ported_app --platform=linux --arch=x64 --electron-version=9.1.0
+electron-packager /tmp/electronpenguinizer_source/ unoffically_ported_app --platform=linux --arch=x64 --electron-version=9.1.0
 
