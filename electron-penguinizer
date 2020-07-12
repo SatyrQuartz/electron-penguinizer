@@ -1,6 +1,18 @@
 electronpenguinizer_current=$(pwd)
-electronpenguinizer_appasar=$(find . -name "app.asar" | head -1)
+electronpenguinizer_CPU="$1"
 
+if [[ $electronpenguinizer_CPU == "--help" ]]; then
+	echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mAvailable Architectures: amd64 i386 armhf arm64 mips64el\033[0m"
+	exit
+fi
+
+if [[ $electronpenguinizer_CPU == "" ]]; then
+	echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mPlease Specify Architecture: amd64 i386 armhf arm64 mips64el\033[0m"
+	exit
+fi
+
+echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mfinding required file...\033[0m"
+electronpenguinizer_appasar=$(find . -name "app.asar" | head -1)
 if test -z "$electronpenguinizer_appasar" 
 then
 	echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mno required file found. exiting.\033[0m"
@@ -12,7 +24,25 @@ else
 	npx asar extract $electronpenguinizer_appasar /tmp/electronpenguinizer_source/
 fi
 
-echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mrebuilding app for linux...\033[0m"
-electron-packager /tmp/electronpenguinizer_source/ unoffically_ported_app --platform=linux --arch=x64 --electron-version=9.1.0
+if [[ $electronpenguinizer_CPU == "amd64" ]]; then
+	echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mrebuilding app for $electronpenguinizer_CPU linux...\033[0m"
+	electron-packager /tmp/electronpenguinizer_source/ unoffically_ported_app --platform=linux --arch=x64 --electron-version=9.1.0
+fi
+if [[ $electronpenguinizer_CPU == "i386" ]]; then
+	echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mrebuilding app for $electronpenguinizer_CPU linux...\033[0m"
+	electron-packager /tmp/electronpenguinizer_source/ unoffically_ported_app --platform=linux --arch=ia32 --electron-version=9.1.0
+fi
+if [[ $electronpenguinizer_CPU == "armhf" ]]; then
+	echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mrebuilding app for $electronpenguinizer_CPU linux...\033[0m"
+	electron-packager /tmp/electronpenguinizer_source/ unoffically_ported_app --platform=linux --arch=armv7l --electron-version=9.1.0
+fi
+if [[ $electronpenguinizer_CPU == "arm64" ]]; then
+	echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mrebuilding app for $electronpenguinizer_CPU linux...\033[0m"
+	electron-packager /tmp/electronpenguinizer_source/ unoffically_ported_app --platform=linux --arch=arm64 --electron-version=9.1.0
+fi
+if [[ $electronpenguinizer_CPU == "mips64el" ]]; then
+	echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mrebuilding app for $electronpenguinizer_CPU linux...\033[0m"
+	electron-packager /tmp/electronpenguinizer_source/ unoffically_ported_app --platform=linux --arch=mips64el --electron-version=9.1.0
+fi
 rm -rf /tmp/electronpenguinizer_source/
 echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mdone!\033[0m"
