@@ -7,6 +7,7 @@ then
     exit
 else
 	rm -rf $electronpenguinizer_current/Source/
+	mkdir $electronpenguinizer_current/Source/
     npx asar extract $electronpenguinizer_appasar $electronpenguinizer_current/Source
 fi
 
