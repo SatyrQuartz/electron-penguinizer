@@ -1,0 +1,14 @@
+electronpenguinizer_current=$(pwd)
+electronpenguinizer_appasar=$(find . -name "app.asar" | head -1)
+
+if test -z "$electronpenguinizer_appasar" 
+then
+    echo "no app.asar found. exiting. "
+    exit
+else
+	rm -rf $electronpenguinizer_current/Source/
+    npx asar extract $electronpenguinizer_appasar $electronpenguinizer_current/Source
+fi
+
+electron-packager Source/ unoffically_ported_app --platform=linux --arch=x64 --electron-version=9.1.0
+
