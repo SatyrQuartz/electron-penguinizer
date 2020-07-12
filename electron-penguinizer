@@ -3,16 +3,16 @@ electronpenguinizer_appasar=$(find . -name "app.asar" | head -1)
 
 if test -z "$electronpenguinizer_appasar" 
 then
-	echo "electron-penguinizer: no required file found. exiting. "
+	echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mno required file found. exiting.\033[0m"
 	exit
 else
-	echo "electron-penguinizer: required file found."
+	echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mrequired file found.\033[0m"
 	mkdir /tmp/electronpenguinizer_source/
-	echo "electron-penguinizer: unbuilding app..."
+	echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37munbuilding app...\033[0m"
 	npx asar extract $electronpenguinizer_appasar /tmp/electronpenguinizer_source/
 fi
 
-echo "electron-penguinizer: rebuilding app..."
+echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mrebuilding app for linux...\033[0m"
 electron-packager /tmp/electronpenguinizer_source/ unoffically_ported_app --platform=linux --arch=x64 --electron-version=9.1.0
 rm -rf /tmp/electronpenguinizer_source/
-echo "electron-penguinizer: done!"
+echo -e "\033[1;34melectron\033[1;37m-\033[1;33mpenguinizer\033[0m: \033[1;37mdone!\033[0m"
