@@ -1,6 +1,10 @@
 # electron-penguinizer
 
 
+this script ports (some) a Windows/Mac Electron Apps to Linux.
+
+
+
 Requirements: 
 do 
 
